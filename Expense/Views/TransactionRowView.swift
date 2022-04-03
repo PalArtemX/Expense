@@ -16,6 +16,12 @@ struct TransactionRowView: View {
             RoundedRectangle(cornerRadius: 20, style: .continuous)
                 .fill(Color.colorTheme.icon.opacity(0.3))
                 .frame(width: 44, height: 44)
+                .overlay(
+                    Image(systemName: "dollarsign.circle")
+                        .symbolRenderingMode(.hierarchical)
+                        .font(.title)
+                        .foregroundColor(.colorTheme.icon)
+                )
             
             VStack(alignment: .leading) {
                 // MARK: - Transaction Merchant
