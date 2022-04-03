@@ -27,10 +27,17 @@ struct TransactionRowView: View {
                     .lineLimit(1)
                 
                 // MARK: - Transaction Date
-                Text(Date(), format: .dateTime.year().month().day())
+                Text(transaction.dateParsed, format: .dateTime.year().month().day())
                     .font(.footnote)
                     .foregroundColor(.secondary)
             }
+            
+            Spacer()
+            
+            // MARK: - Transaction Category
+            Text(transaction.signedAmount, format: .currency(code: "USD"))
+                .bold()
+                .foregroundColor(transaction.type == TransactionType.credit.rawValue ? .colorTheme.text : .primary)
         }
         .padding(.vertical)
     }
