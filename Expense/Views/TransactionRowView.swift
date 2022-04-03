@@ -13,6 +13,10 @@ struct TransactionRowView: View {
     
     var body: some View {
         HStack {
+            RoundedRectangle(cornerRadius: 20, style: .continuous)
+                .fill(Color.colorTheme.icon.opacity(0.3))
+                .frame(width: 44, height: 44)
+            
             VStack(alignment: .leading) {
                 // MARK: - Transaction Merchant
                 Text(transaction.merchant)
