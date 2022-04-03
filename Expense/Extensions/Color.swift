@@ -13,6 +13,7 @@ struct ColorTheme {
     let background = Color("Background")
     let icon = Color("Icon")
     let text = Color("Text")
+    let systemBackground = Color(uiColor: .systemBackground)
 }
 
 
