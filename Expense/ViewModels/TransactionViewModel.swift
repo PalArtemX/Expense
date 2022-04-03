@@ -7,6 +7,9 @@
 
 import Foundation
 import Combine
+import Collections
+
+typealias TransactionGroup = OrderedDictionary<String, [Transaction]>
 
 class TransactionViewModel: ObservableObject {
     @Published var transactions: [Transaction] = []
@@ -16,10 +19,7 @@ class TransactionViewModel: ObservableObject {
         getTransactions()
     }
     
-    
-    
     func getTransactions() {
-        
         guard let url = URL(string: "https://designcode.io/data/transactions.json") else { return }
         
         URLSession.shared.dataTaskPublisher(for: url)
@@ -29,7 +29,6 @@ class TransactionViewModel: ObservableObject {
                     response.statusCode >= 200 && response.statusCode < 300 else {
                     throw URLError(.badServerResponse)
                 }
-                  
                 return output.data
             }
             .decode(type: [Transaction].self, decoder: JSONDecoder())
@@ -46,9 +45,14 @@ class TransactionViewModel: ObservableObject {
                 self?.transactions = returnValue
             }
             .store(in: &cancellable)
-
-        
     }
     
     
+    func groupTransactionsByMonth() -> TransactionGroup {
+        guard !transactions.isEmpty else { return [:] }
+        
+        let groupedTransactions = TransactionGroup(grouping: transactions) { $0.month }
+        
+        return groupedTransactions
+    }
 }
